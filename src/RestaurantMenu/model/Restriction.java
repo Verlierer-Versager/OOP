@@ -4,7 +4,8 @@ public enum Restriction {
     NONE,
     FOR_ADULTS_ONLY,
     STRONG_ALLERGENS,
-    VEGETARIAN,
-    VEGAN,
-    SPICY
+    NOT_VEGETARIAN,
+    //VEGAN,
+    NOT_SPICY,
+    NOT_VEGAN
 }
