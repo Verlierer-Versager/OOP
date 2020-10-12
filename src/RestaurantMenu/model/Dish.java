@@ -1,18 +1,18 @@
 package RestaurantMenu.model;
 
-abstract class Dish{
+public abstract class Dish{
     protected double price;
     protected int time;
-    protected String category;
+    protected Restriction restriction;
 
-    public Dish(double price, int time, String category) {
+    public Dish(double price, int time, Restriction restriction) {
         this.price = price;
         this.time = time;
-        this.category = category;
+        this.restriction = restriction;
     }
 
-    public String getCategory() {
-        return category;
+    public Dish(double price, int time) {
+        this(price, time, Restriction.NONE);
     }
 
     public int getTime() {
@@ -25,10 +25,6 @@ abstract class Dish{
 
     public void setPrice(double price) {
         this.price = price;
-    }
-
-    public void setCategory(String category) {
-        this.category = category;
     }
 
     public void setTime(int time) {
