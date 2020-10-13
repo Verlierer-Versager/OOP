@@ -1,5 +1,6 @@
 package RestaurantMenu.service;
 
+import RestaurantMenu.model.Category;
 import RestaurantMenu.model.Dish;
 import RestaurantMenu.model.Ingredient;
 import RestaurantMenu.model.Restriction;
@@ -19,12 +20,12 @@ public class DishService {
 
             if(restrictions.size() == Restriction.values().length ) break;
         }
+        restrictions.remove(Restriction.NONE);
         dish.setRestrictions(restrictions);
-        //if(restrictions.contains(Restriction.NOT_VEGAN)) restrictions.remove(Restriction.VEGAN);
     }
 
-    public Dish createDish(String name, double price, int time, List<Ingredient> ingredients) {
-        return new Dish(name, price, time, ingredients); //добавить в меню
+    public Dish createDish(String name, double price, int time, List<Ingredient> ingredients, Category category, long id) {
+        return new Dish(name, price, time, ingredients, category, id ); //добавить в меню
     }
 
     public boolean isDishCorrect(Set<Restriction> restrictions, Dish dish) {

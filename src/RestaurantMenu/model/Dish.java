@@ -1,30 +1,37 @@
 package RestaurantMenu.model;
 
 import java.util.ArrayList;
+import java.util.EnumSet;
 import java.util.List;
 import java.util.Set;
 
 public class Dish{
-    protected String name;
-    protected double price;
-    protected int time;
-    protected Category category;
-    protected Set<Restriction> restrictions;
-    protected List<Ingredient> ingredients  = new ArrayList<>();
+    private long id;
+    private String name;
+    private double price;
+    private int time;
+    private Category category;
+    private Set<Restriction> restrictions;
+    private List<Ingredient> ingredients  = new ArrayList<>();
 
-    /*public Dish(double price, int time, Restriction restriction) {
-        this.price = price;
-        this.time = time;
-        this.restriction = restriction;
-    }*/
+    public long getId() {
+        return id;
+    }
 
-    /*public Dish(String name, double price, int time) {
-        this.name = name;
-        this.price = price;
-        this.time = time;;
-    }*/
+    public void setId(long id) {
+        this.id = id;
+    }
 
-    public Dish(String name, double price, int time, List<Ingredient> ingredients, Category category) {
+    public Category getCategory() {
+        return category;
+    }
+
+    public void setCategory(Category category) {
+        this.category = category;
+    }
+
+    public Dish(String name, double price, int time, List<Ingredient> ingredients, Category category, long id) {
+        this.id = id;
         this.name = name;
         this.price = price;
         this.time = time;
@@ -88,15 +95,15 @@ public class Dish{
         return true;
     }
 
-    /*@Override
+    @Override
     public int hashCode() {
         int result = (int) (id ^ (id >>> 32));
         result = 31 * result + (name != null ? name.hashCode() : 0);
-        result = 31 * result + (description != null ? description.hashCode() : 0);
-        result = 31 * result + (tags != null ? tags.hashCode() : 0);
-        result = 31 * result + (type != null ? type.hashCode() : 0);
-        result = 31 * result + (priority != null ? priority.hashCode() : 0);
-        result = 31 * result + (dueDate != null ? dueDate.hashCode() : 0);
+        result = 31 * result + ((Integer.valueOf(time).hashCode())); //(time ^ (time >>> 32))
+        result = 31 * result + (Double.valueOf(price).hashCode());
+        result = 31 * result + (category != null ? category.hashCode() : 0);
+        result = 31 * result + (restrictions != null ? restrictions.hashCode() : 0);
+        result = 31 * result + (ingredients != null ? ingredients.hashCode() : 0);
         return result;
-    }*/
+    }
 }

@@ -4,6 +4,8 @@ import RestaurantMenu.model.Dish;
 import RestaurantMenu.model.Order;
 import RestaurantMenu.model.Restriction;
 
+import java.util.ArrayList;
+import java.util.EnumSet;
 import java.util.List;
 import java.util.Set;
 
@@ -15,12 +17,18 @@ public class MainService {
 
 
     public void menuFormation(int time, double money, Set<Restriction> restrictions) throws Exception {
-        clientService.createClient(time, money, restrictions); //создание клиента
+        clientService.createClient(time, money, restrictions);//создание клиента
+        menuService.demo(dishService);
         var formattedMenu = menuService.formMenuForCurrentClient(restrictions, dishService); //выстраивание доступных блюд из меню по ограничениям
+        clientService.setPersonalMenu(formattedMenu);
+
     }
 
-    public void order(List<Dish> order) {
-        //clientService.order(order);
+    public void order(List<Integer> ids) {
+        List<Dish> order = new ArrayList<>();
+        for (var element: ids) {
+            order.add(clientService.getPersonalMenu().getDishes().get(element));
+        }
         var withDiscount = discountService.countDiscount(order);
         int time = 0;
         double bill = 0.0;
@@ -46,7 +54,7 @@ public class MainService {
         return menuService.getMenu().toString();
     }
 
-    /*public void checkForDiscount() {
-
-    }*/
+    public String showPersonalMenu() {
+        return clientService.getPersonalMenu().toString();
+    }
 }

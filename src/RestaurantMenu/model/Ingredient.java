@@ -1,8 +1,8 @@
 package RestaurantMenu.model;
 
 public class Ingredient {
-    protected String name;
-    protected Restriction restriction;
+    private String name;
+    private Restriction restriction;
 
     public Ingredient(String name, Restriction restriction) {
         this.name = name;

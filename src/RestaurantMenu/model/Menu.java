@@ -28,10 +28,9 @@ public class Menu {
     public String toString() {
         StringBuilder stringBuilder = new StringBuilder();
         for(var element: dishes) {
-            stringBuilder.append(element.getName() + element.getPrice() + element.getTime() +  "\n");
+            stringBuilder.append(element.getId() + "\t" +element.getName() + "\t" + element.getPrice() + "\t" + element.getTime() +  "\n");
         }
-
-        return new String("Name                         Price        Waiting time\n" + stringBuilder.toString());
+        return "ID\tName\tPrice\tWaiting time\n" + stringBuilder.toString();
     }
 
 }

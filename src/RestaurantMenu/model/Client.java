@@ -4,11 +4,11 @@ import java.util.List;
 import java.util.Set;
 
 public class Client {
-    protected int time;
-    protected double money;
-    protected Set<Restriction> restrictions;
-    protected Menu personalMenu = null;
-    protected Order order;
+    private int time;
+    private double money;
+    private Set<Restriction> restrictions;
+    private Menu personalMenu;
+    private Order order;
 
     public Menu getPersonalMenu() {
         return personalMenu;

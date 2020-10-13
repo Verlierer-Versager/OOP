@@ -4,8 +4,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class Discount {
-    protected Map<Dish, Dish> combinations = new HashMap<>();
-    protected int discount;
+    private Map<Dish, Dish> combinations = new HashMap<>();
+    private int discount;
 
     public Discount(int discount) {
         this.discount = discount;

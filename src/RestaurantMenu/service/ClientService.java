@@ -2,6 +2,7 @@ package RestaurantMenu.service;
 
 import RestaurantMenu.model.*;
 
+import javax.crypto.spec.PSource;
 import java.util.List;
 import java.util.Set;
 
@@ -13,8 +14,8 @@ public class ClientService {
     }*/
 
     public void createClient(int time, double money, Set<Restriction> restrictions) throws Exception {
-        if (time<=0 && money<0) {
-            throw new Exception("Incorrect input");
+        if (time <= 0 && money < 0) {
+            throw new IllegalArgumentException("Incorrect input");
         }
         this.client = new Client(time, money, restrictions);
     }
@@ -32,11 +33,15 @@ public class ClientService {
         client.setMoney(client.getMoney() - fullPrice);
     }
 
-    public void setPersonalMenu(Menu personalMenu) throws Exception{
-        if(personalMenu == null) {
-            throw new Exception("Personal menu has not been generated");
+    public void setPersonalMenu(Menu personalMenu) throws Exception {
+        if (personalMenu == null) {
+            throw new IllegalArgumentException("Personal menu has not been generated");
         }
         client.setPersonalMenu(personalMenu);
+    }
+
+    public Menu getPersonalMenu() {
+        return client.getPersonalMenu();
     }
 
     public Client getClient() {

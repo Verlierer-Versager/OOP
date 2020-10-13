@@ -4,9 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Order {
-    protected int fullTime = 0;
-    protected double fullPrice = 0.0;
-    List<Dish> order = new ArrayList<>();
+    private int fullTime = 0;
+    private double fullPrice = 0.0;
+    private List<Dish> order = new ArrayList<>();
 
     public Order(int fullTime, double fullPrice, List<Dish> order) {
         this.fullTime = fullTime;
