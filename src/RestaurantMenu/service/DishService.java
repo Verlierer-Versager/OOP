@@ -27,6 +27,6 @@ public class DishService {
         return new Dish(name, price, time, ingredients); //добавить в меню
     }
 
-    public void removeDish()
+    //public void removeDish()
 
 }
