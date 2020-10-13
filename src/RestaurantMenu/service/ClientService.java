@@ -1,9 +1,6 @@
 package RestaurantMenu.service;
 
-import RestaurantMenu.model.Client;
-import RestaurantMenu.model.Dish;
-import RestaurantMenu.model.Menu;
-import RestaurantMenu.model.Restriction;
+import RestaurantMenu.model.*;
 
 import java.util.List;
 import java.util.Set;
@@ -26,11 +23,11 @@ public class ClientService {
         return this.client.getMoney() > price && this.client.getTime() > time;
     }
 
-    public void order(List<Dish> order) {
+    public void order(Order order) {
         client.setOrder(order);
     }
 
-    public void bill(List<Dish> order, double fullPrice) {
+    public void bill(Order order, double fullPrice) {
         client.setOrder(order);
         client.setMoney(client.getMoney() - fullPrice);
     }
@@ -42,4 +39,7 @@ public class ClientService {
         client.setPersonalMenu(personalMenu);
     }
 
+    public Client getClient() {
+        return client;
+    }
 }

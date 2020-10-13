@@ -8,7 +8,7 @@ public class Client {
     protected double money;
     protected Set<Restriction> restrictions;
     protected Menu personalMenu = null;
-    protected List<Dish> order;
+    protected Order order;
 
     public Menu getPersonalMenu() {
         return personalMenu;
@@ -18,11 +18,11 @@ public class Client {
         this.personalMenu = personalMenu;
     }
 
-    public List<Dish> getOrder() {
+    public Order getOrder() {
         return order;
     }
 
-    public void setOrder(List<Dish> order) {
+    public void setOrder(Order order) {
         this.order = order;
     }
 

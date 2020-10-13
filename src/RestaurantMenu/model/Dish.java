@@ -8,6 +8,7 @@ public class Dish{
     protected String name;
     protected double price;
     protected int time;
+    protected Category category;
     protected Set<Restriction> restrictions;
     protected List<Ingredient> ingredients  = new ArrayList<>();
 
@@ -23,11 +24,20 @@ public class Dish{
         this.time = time;;
     }*/
 
-    public Dish(String name, double price, int time, List<Ingredient> ingredients) {
+    public Dish(String name, double price, int time, List<Ingredient> ingredients, Category category) {
         this.name = name;
         this.price = price;
         this.time = time;
         this.ingredients = ingredients;
+        this.category = category;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public int getTime() {

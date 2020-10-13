@@ -8,6 +8,14 @@ import java.util.*;
 public class DiscountService {
     private Discount discount = new Discount(15);
 
+    public Discount getDiscount() {
+        return discount;
+    }
+
+    public void setDiscount(Discount discount) {
+        this.discount = discount;
+    }
+
     public Set<Dish> countDiscount(List<Dish> order) {
         Set<Dish> withDiscount = new LinkedHashSet<>();
         for (var dish : order) {

@@ -23,4 +23,15 @@ public class Menu {
         this.dishes = new ArrayList<>();
     }
 
+
+    @Override
+    public String toString() {
+        StringBuilder stringBuilder = new StringBuilder();
+        for(var element: dishes) {
+            stringBuilder.append(element.getName() + element.getPrice() + element.getTime() +  "\n");
+        }
+
+        return new String("Name                         Price        Waiting time\n" + stringBuilder.toString());
+    }
+
 }
