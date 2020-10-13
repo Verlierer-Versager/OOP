@@ -61,4 +61,32 @@ public class Dish{
     public void setIngredients(List<Ingredient> ingredients) {
         this.ingredients = ingredients;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Dish dish = (Dish) o;
+
+        if (name != null ? !name.equals(dish.name) : dish.name != null) return false;
+        if(Math.abs(price-dish.getPrice())>1e-6) return false;
+        if(time != dish.getTime()) return false;
+        if(!restrictions.equals(dish.getRestrictions())) return false;
+        if(!ingredients.equals(dish.getIngredients())) return false;
+
+        return true;
+    }
+
+    /*@Override
+    public int hashCode() {
+        int result = (int) (id ^ (id >>> 32));
+        result = 31 * result + (name != null ? name.hashCode() : 0);
+        result = 31 * result + (description != null ? description.hashCode() : 0);
+        result = 31 * result + (tags != null ? tags.hashCode() : 0);
+        result = 31 * result + (type != null ? type.hashCode() : 0);
+        result = 31 * result + (priority != null ? priority.hashCode() : 0);
+        result = 31 * result + (dueDate != null ? dueDate.hashCode() : 0);
+        return result;
+    }*/
 }

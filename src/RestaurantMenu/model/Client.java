@@ -7,7 +7,16 @@ public class Client {
     protected int time;
     protected double money;
     protected Set<Restriction> restrictions;
+    protected Menu personalMenu = null;
     protected List<Dish> order;
+
+    public Menu getPersonalMenu() {
+        return personalMenu;
+    }
+
+    public void setPersonalMenu(Menu personalMenu) {
+        this.personalMenu = personalMenu;
+    }
 
     public List<Dish> getOrder() {
         return order;

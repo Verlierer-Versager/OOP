@@ -27,6 +27,13 @@ public class DishService {
         return new Dish(name, price, time, ingredients); //добавить в меню
     }
 
+    public boolean isDishCorrect(Set<Restriction> restrictions, Dish dish) {
+        var dishRestriction = dish.getRestrictions();
+        for (var restriction: restrictions) {
+            if(dishRestriction.contains(restriction)) return false;
+        }
+        return true;
+    }
     //public void removeDish()
 
 }
