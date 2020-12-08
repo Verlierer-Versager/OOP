@@ -17,11 +17,11 @@ public class MainService {
         clientService.createClient(name, time, money, restrictions);//создание клиента
         menuService.demo(dishService);
         var formattedMenu = menuService.formMenuForCurrentClient(restrictions, dishService); //выстраивание доступных блюд из меню по ограничениям
-        clientService.setPersonalMenu(formattedMenu);
+        clientService.setPersonalMenu(formattedMenu, clientService.getLastClient().getId());
 
     }
 
-    public void order(List<Integer> ids) {
+    public void order(List<Integer> ids, long id) {
         List<Dish> order = new ArrayList<>();
         Set<Set<Dish>> combos = new LinkedHashSet<>();
         Set<Dish> set = new LinkedHashSet<>();
@@ -30,7 +30,7 @@ public class MainService {
         combos.add(set);
         discountService.setCombinations(combos);
         for (var element: ids) {
-            order.add(clientService.getPersonalMenu().getDishes().get(element));
+            order.add(clientService.getPersonalMenu(id).getDishes().get(element));
         }
         var withDiscount = discountService.countDiscount(order, dishService);
         int time = 0;
@@ -39,24 +39,33 @@ public class MainService {
             time += dish.getTime();
             bill += dish.getPrice();
         }
-        if(clientService.isAvailable(time, bill)) {
-            clientService.order(new Order(time, bill, withDiscount));
+        if(clientService.isAvailable(id, time, bill)) {
+            clientService.order(new Order(time, bill, withDiscount), id);
         }
     }
 
-    public String showOrder() {
-        return clientService.getClient().getOrder().toString();
+    public String showOrder(long id) {
+        return clientService.getClient(id).getOrder().toString();
     }
 
-    public String showMenu() {
-        return menuService.getMenu().toString();
+    //public List<String>
+
+    public List<String> showMenu() {
+        menuService.demo(dishService);
+        var menu = menuService.getMenu().getDishes();
+        List<String> showMenu = new ArrayList<>();
+        showMenu.add("Название                                  Время ожидания                                  Цена");
+        for(var dish: menu) {
+            showMenu.add(dish.toString());
+        }
+        return showMenu;
     }
 
     /*public List getMenu() {
         return clientService.getPersonalMenu();
     }*/
 
-    public String showPersonalMenu() {
-        return clientService.getPersonalMenu().toString();
+    public String showPersonalMenu(long id) {
+        return clientService.getPersonalMenu(id).toString();
     }
 }

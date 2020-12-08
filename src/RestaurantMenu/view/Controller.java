@@ -54,7 +54,7 @@ public class Controller {
         });
         /*var menu = mainService.
         MenuList = mainService.showPersonalMenu()*/
-        var a = FXCollections.observableArrayList("Java", "JavaScript", "C#", "Python");
+        var a = FXCollections.observableArrayList(mainService.showMenu());
         MenuList.setItems(a);
 
 

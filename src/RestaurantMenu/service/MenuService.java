@@ -43,19 +43,14 @@ public class MenuService {
 
     public void demo(DishService dishService) {
        List<Dish> demo = new ArrayList<>();
-       var cesar = new ArrayList<Ingredient>();
-       cesar.add(new Ingredient("Курица", Restriction.NOT_VEGAN));
-        cesar.add(new Ingredient("Салат", Restriction.NONE ));
-       demo.add(new Dish("Цезарь", 290.0, 600, cesar, Category.SALAD, demo.size()));
-
-        var tom = new ArrayList<Ingredient>();
-        cesar.add(new Ingredient("Креветка", Restriction.STRONG_ALLERGENS));
-        cesar.add(new Ingredient("Перец", Restriction.NOT_SPICY ));
-       demo.add(new Dish("Том Ям", 300.0, 1200, tom, Category.SOUP, demo.size()));
-       /*demo.add(new Dish("Компот", 60.0, 600, Arrays.asList(new Ingredient("Сухофрукты", Restriction.NONE),
+       demo.add(new Dish("Цезарь", 290.0, 600, Arrays.asList(new Ingredient("Курица", Restriction.NOT_VEGAN),
+               new Ingredient("Салат", Restriction.NONE )), Category.SALAD, demo.size()));
+       demo.add(new Dish("Том Ям", 300.0, 1200, Arrays.asList(new Ingredient("Креветка", Restriction.STRONG_ALLERGENS),
+               new Ingredient("Перец", Restriction.NOT_SPICY )), Category.SOUP, demo.size()));
+       demo.add(new Dish("Компот", 60.0, 600, Arrays.asList(new Ingredient("Сухофрукты", Restriction.NONE),
                 new Ingredient("Вода", Restriction.NONE )), Category.DRINK, demo.size()));
         demo.add(new Dish("Крем брюле", 240.0, 300, Arrays.asList(new Ingredient("Сливки", Restriction.NOT_VEGAN),
-                new Ingredient("Сахар", Restriction.NONE )), Category.DESSERTS, demo.size()));*/
+                new Ingredient("Сахар", Restriction.NONE )), Category.DESSERTS, demo.size()));
         for (var element: demo) {
             dishService.setRestriction(element);
         }

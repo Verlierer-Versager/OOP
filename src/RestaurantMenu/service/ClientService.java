@@ -3,12 +3,14 @@ package RestaurantMenu.service;
 import RestaurantMenu.model.*;
 
 import javax.crypto.spec.PSource;
+import java.util.ArrayList;
 import java.util.EnumSet;
 import java.util.List;
 import java.util.Set;
 
 public class ClientService {
-    private Client client;
+    private List<Client> clients = new ArrayList<>();
+    //private Client client;
     private long id = 0;
 
     /*public ClientService(int time, double money, Set<Restriction> restrictions) {
@@ -19,35 +21,39 @@ public class ClientService {
         if (time <= 0 && money < 0 && name != null && name != "") {
             throw new IllegalArgumentException("Incorrect input");
         }
-        this.client = new Client(id, name,  time, money, restrictions);
+        clients.add(new Client(id, name,  time, money, restrictions));
         id++;
     }
 
-    public boolean isAvailable(int time, double price) {
-        return this.client.getMoney() > price && this.client.getTime() > time;
+    public boolean isAvailable(long id, int time, double price) {
+        return clients.get((int) id).getMoney() > price && clients.get((int) id).getTime() > time;
     }
 
-    public void order(Order order) {
-        client.setOrder(order);
+    public void order(Order order, long id) {
+        clients.get((int) id).setOrder(order);
     }
 
-    public void bill(Order order, double fullPrice) {
-        client.setOrder(order);
-        client.setMoney(client.getMoney() - fullPrice);
+    public void bill(Order order, double fullPrice, long id) {
+        clients.get((int) id).setOrder(order);
+        clients.get((int) id).setMoney(clients.get((int) id).getMoney() - fullPrice);
     }
 
-    public void setPersonalMenu(Menu personalMenu) throws Exception {
+    public void setPersonalMenu(Menu personalMenu, long id) throws Exception {
         if (personalMenu == null) {
             throw new IllegalArgumentException("Personal menu has not been generated");
         }
-        client.setPersonalMenu(personalMenu);
+        clients.get((int) id).setPersonalMenu(personalMenu);
     }
 
-    public Menu getPersonalMenu() {
-        return client.getPersonalMenu();
+    public Menu getPersonalMenu(long id) {
+        return clients.get((int) id).getPersonalMenu();
     }
 
-    public Client getClient() {
-        return client;
+    public Client getClient(long id) {
+        return clients.get((int) id);
+    }
+
+    public Client getLastClient() {
+        return clients.get(clients.size() - 1);
     }
 }

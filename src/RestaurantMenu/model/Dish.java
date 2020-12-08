@@ -106,4 +106,9 @@ public class Dish{
         result = 31 * result + (ingredients != null ? ingredients.hashCode() : 0);
         return result;
     }
+
+    @Override
+    public String toString() {
+        return ""+ this.name + "                                             "+ this.time + "                                         " + this.price;
+    }
 }

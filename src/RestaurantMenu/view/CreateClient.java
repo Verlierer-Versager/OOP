@@ -101,24 +101,14 @@ public class CreateClient {
     public void start() {
         Parent root;
         try {
-            /*InputStream stream = getClass().getResourceAsStream("CreateClientView.fxml");
-            Parent root = new FXMLLoader().load(stream);
-            URL url = new File("src/RestaurantMenu/view/CreateClientView.fxml").toURI().toURL();
-            //Parent root = FXMLLoader.load(url);*/
             root = FXMLLoader.load(getClass().getResource("fxml/CreateClientView.fxml"));
-            /*CreateClientView controller = new CreateClientView();
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("fxml/CreateClientView.fxml"));
-            loader.setController(controller);*/
-            //Parent root = FXMLLoader.load(getClass().getResource("AppView.fxml"));
-            //Parent root = FXMLLoader.load(getClass().getResource("AppView.fxml"));
             Stage stage = new Stage();
-            stage.setTitle("Меню ресторана");
-            stage.setScene(new Scene(root, 600, 600));
+            stage.setTitle("Создание клиента");
+            stage.setScene(new Scene(root, 600, 400));
             stage.setMinWidth(300);
             stage.setMinHeight(300);
             stage.show();
-            // Hide this current window (if this is what you want)
-            //((Node) (event.getSource())).getScene().getWindow().hide();
+
         } catch (Exception e) {
             e.printStackTrace();
         }
