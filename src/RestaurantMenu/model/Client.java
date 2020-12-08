@@ -5,7 +5,8 @@ import java.util.List;
 import java.util.Set;
 
 public class Client {
-    long id;
+    private long id;
+    private String name;
     private int time;
     private double money;
     private EnumSet<Restriction> restrictions;
@@ -28,8 +29,9 @@ public class Client {
         this.order = order;
     }
 
-    public Client(long id, int time, double money, EnumSet<Restriction> restrictions) {
+    public Client(long id, String name, int time, double money, EnumSet<Restriction> restrictions) {
         this.id = id;
+        this.name = name;
         this.time = time;
         this.money = money;
         this.restrictions = restrictions;
@@ -41,6 +43,14 @@ public class Client {
 
     public void setId(long id) {
         this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public int getTime() {

@@ -8,17 +8,19 @@ import java.util.List;
 import java.util.Set;
 
 public class ClientService {
-    protected Client client;
+    private Client client;
+    private long id = 0;
 
     /*public ClientService(int time, double money, Set<Restriction> restrictions) {
         this.client = new Client(time, money, restrictions);
     }*/
 
-    public void createClient(long id, int time, double money, EnumSet<Restriction> restrictions) throws Exception {
-        if (time <= 0 && money < 0) {
+    public void createClient(String name, int time, double money, EnumSet<Restriction> restrictions) throws Exception {
+        if (time <= 0 && money < 0 && name != null && name != "") {
             throw new IllegalArgumentException("Incorrect input");
         }
-        this.client = new Client(id, time, money, restrictions);
+        this.client = new Client(id, name,  time, money, restrictions);
+        id++;
     }
 
     public boolean isAvailable(int time, double price) {

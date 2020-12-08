@@ -1,13 +1,11 @@
 package RestaurantMenu.view;
 
 import java.net.URL;
-import java.util.ArrayList;
 import java.util.ResourceBundle;
 import java.util.Scanner;
 
 import RestaurantMenu.service.MainService;
 import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -21,7 +19,7 @@ import javafx.stage.Stage;
 
 public class Controller {
     private final static MainService mainService = new MainService();
-    private final static Scanner scanner = new Scanner(System.in);
+    //private final static Scanner scanner = new Scanner(System.in);
 
     @FXML
     private ResourceBundle resources;
@@ -50,6 +48,10 @@ public class Controller {
 
     @FXML
     void initialize() {
+        CreateClient.setOnAction(event -> {
+            CreateClient createClient = new CreateClient();
+            createClient.start();
+        });
         /*var menu = mainService.
         MenuList = mainService.showPersonalMenu()*/
         var a = FXCollections.observableArrayList("Java", "JavaScript", "C#", "Python");
@@ -60,7 +62,7 @@ public class Controller {
 
 
     public void start(Stage primaryStage) throws Exception {
-        Parent root = FXMLLoader.load(getClass().getResource("AppView.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("fxml/AppView.fxml"));
         primaryStage.setTitle("Меню ресторана");
         primaryStage.setScene(new Scene(root, 600, 600));
         primaryStage.setMinWidth(300);

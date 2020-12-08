@@ -9,7 +9,7 @@ public class MainView {
     private final static MainService mainService = new MainService();
     private final static Scanner scanner = new Scanner(System.in);
 
-    public void ShowMainService() {
+    /*public void ShowMainService() {
         System.out.print("Hello!\nPlease fill in the following fields\nYour free time: ");
         int id =0;//прописать
         int time = scanner.nextInt();
@@ -25,7 +25,7 @@ public class MainView {
         } while (!"Exit".equalsIgnoreCase(command));
 
         try {
-            mainService.menuFormation(id, time, money, restrictions);
+            mainService.menuFormation(name, id, time, money, restrictions);
         } catch (Exception e) {
             System.out.println("You entered incorrect data");
         }
@@ -43,5 +43,5 @@ public class MainView {
         mainService.order(ids);
         System.out.println(mainService.showOrder());
 
-    }
+    }*/
 }

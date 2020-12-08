@@ -13,8 +13,8 @@ public class MainService {
     private final static DiscountService discountService = new DiscountService();
 
 
-    public void menuFormation(long id, int time, double money, EnumSet<Restriction> restrictions) throws Exception {
-        clientService.createClient(id, time, money, restrictions);//создание клиента
+    public void menuFormation(String name, long id, int time, double money, EnumSet<Restriction> restrictions) throws Exception {
+        clientService.createClient(name, time, money, restrictions);//создание клиента
         menuService.demo(dishService);
         var formattedMenu = menuService.formMenuForCurrentClient(restrictions, dishService); //выстраивание доступных блюд из меню по ограничениям
         clientService.setPersonalMenu(formattedMenu);
