@@ -4,10 +4,7 @@ import RestaurantMenu.model.Dish;
 import RestaurantMenu.model.Order;
 import RestaurantMenu.model.Restriction;
 
-import java.util.ArrayList;
-import java.util.EnumSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 public class MainService {
     private final static DishService dishService = new DishService();
@@ -26,23 +23,24 @@ public class MainService {
 
     public void order(List<Integer> ids) {
         List<Dish> order = new ArrayList<>();
+        Set<Set<Dish>> combos = new LinkedHashSet<>();
+        Set<Dish> set = new LinkedHashSet<>();
+        set.add(menuService.getMenu().getDishes().get(0));
+        set.add(menuService.getMenu().getDishes().get(1));
+        combos.add(set);
+        discountService.setCombinations(combos);
         for (var element: ids) {
             order.add(clientService.getPersonalMenu().getDishes().get(element));
         }
-        var withDiscount = discountService.countDiscount(order);
+        var withDiscount = discountService.countDiscount(order, dishService);
         int time = 0;
         double bill = 0.0;
-        for (var dish: order) {
-            if(withDiscount.contains(dish)) {
-                bill += dish.getPrice() * (1 - discountService.getDiscount().getDiscount()/100.0);
-            } else {
-                bill += dish.getPrice();
-            }
-
+        for (var dish: withDiscount) {
             time += dish.getTime();
+            bill += dish.getPrice();
         }
         if(clientService.isAvailable(time, bill)) {
-            clientService.order(new Order(time, bill, order));
+            clientService.order(new Order(time, bill, withDiscount));
         }
     }
 

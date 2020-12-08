@@ -16,9 +16,13 @@ public class DiscountService {
         this.discount = discount;
     }
 
-    public Set<Dish> countDiscount(List<Dish> order, DishService dishService) {
+    public void setCombinations(Set<Set<Dish>> combinations) {
+        discount.setCombinations(combinations);
+    }
+
+    public List<Dish> countDiscount(List<Dish> order, DishService dishService) {
         var newOrder = List.copyOf(order);
-        Set<Dish> withDiscount = new LinkedHashSet<>();
+        List<Dish> withDiscount = new ArrayList<>();
         var combos =  discount.getCombinations();
         //var select = Optional.of(newOrder); //Хотелось через Optional, но не получилось
         for (var dish : newOrder) {
@@ -26,13 +30,14 @@ public class DiscountService {
                 if(combo.contains(dish)) {
                     Set<Dish> temp = new LinkedHashSet<>();
                     for(var comboDish: combo) {
-                        if (newOrder.contains(comboDish)) {
+                        if (order.contains(comboDish)) {
                             temp.add(comboDish);
                         }
                     }
                     if(temp.equals(combo)) {
                         for(var comboDish: combo) {
-                            newOrder.remove(comboDish);
+                            int index = order.indexOf(comboDish);
+                            order.remove(index);
                             double discountPrice = comboDish.getPrice() * (100 - discount.getDiscount()) / 100;
                             Dish discountDish = dishService.copy(comboDish);
                             discountDish.setPrice(discountPrice);
@@ -41,9 +46,10 @@ public class DiscountService {
                     }
                 }
             }
-            if(!newOrder.isEmpty()) {
-                withDiscount.addAll(newOrder);
+            if(!order.isEmpty()) {
+                withDiscount.addAll(order);
             }
+            /*order = newOrder;
             /*if (discount.getCombinations().containsKey(dish)) {
                 withDiscount.add(dish);
                 withDiscount.add(discount.getCombinations().get(dish));

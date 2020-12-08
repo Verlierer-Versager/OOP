@@ -8,7 +8,6 @@ import javafx.scene.control.Control;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 
-import java.io.IOException;
 
 public class MainAppView extends Application {
 

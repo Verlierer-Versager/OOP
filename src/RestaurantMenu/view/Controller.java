@@ -53,7 +53,7 @@ public class Controller {
         /*var menu = mainService.
         MenuList = mainService.showPersonalMenu()*/
         var a = FXCollections.observableArrayList("Java", "JavaScript", "C#", "Python");
-        MenuList = new ListView<String>(a);
+        MenuList.setItems(a);
 
 
     }
