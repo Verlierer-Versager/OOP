@@ -3,10 +3,7 @@ package RestaurantMenu.service;
 import RestaurantMenu.model.*;
 
 import java.lang.reflect.Array;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 public class MenuService {
     private Menu menu = new Menu();
@@ -16,6 +13,10 @@ public class MenuService {
         this.dishService = dishService;
     }*/
 
+    /*public  getMenu(DishService dishService) {
+        return menu.getDishes();
+    }
+*/
     public void add(String name, double price, int time, List<Ingredient> ingredients, DishService dishService, Category category, long id) {
         Dish dish = dishService.createDish(name, price, time, ingredients, category, id);
         var newDishes = menu.getDishes();
@@ -23,7 +24,7 @@ public class MenuService {
         menu.setDishes(newDishes);
     }
 
-    public Menu formMenuForCurrentClient(Set<Restriction> restrictions, DishService dishService) {
+    public Menu formMenuForCurrentClient(EnumSet<Restriction> restrictions, DishService dishService) {
         var fullMenu= menu.getDishes();
         List<Dish> personalMenu = new ArrayList<>();
         for (var dish: fullMenu) {

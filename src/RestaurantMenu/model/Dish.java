@@ -11,7 +11,7 @@ public class Dish{
     private double price;
     private int time;
     private Category category;
-    private Set<Restriction> restrictions;
+    private EnumSet<Restriction> restrictions;
     private List<Ingredient> ingredients  = new ArrayList<>();
 
     public long getId() {
@@ -63,11 +63,11 @@ public class Dish{
         this.time = time;
     }
 
-    public Set<Restriction> getRestrictions() {
+    public EnumSet<Restriction> getRestrictions() {
         return restrictions;
     }
 
-    public void setRestrictions(Set<Restriction> restrictions) {
+    public void setRestrictions(EnumSet<Restriction> restrictions) {
         this.restrictions = restrictions;
     }
 

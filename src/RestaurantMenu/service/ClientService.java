@@ -3,6 +3,7 @@ package RestaurantMenu.service;
 import RestaurantMenu.model.*;
 
 import javax.crypto.spec.PSource;
+import java.util.EnumSet;
 import java.util.List;
 import java.util.Set;
 
@@ -13,11 +14,11 @@ public class ClientService {
         this.client = new Client(time, money, restrictions);
     }*/
 
-    public void createClient(int time, double money, Set<Restriction> restrictions) throws Exception {
+    public void createClient(long id, int time, double money, EnumSet<Restriction> restrictions) throws Exception {
         if (time <= 0 && money < 0) {
             throw new IllegalArgumentException("Incorrect input");
         }
-        this.client = new Client(time, money, restrictions);
+        this.client = new Client(id, time, money, restrictions);
     }
 
     public boolean isAvailable(int time, double price) {

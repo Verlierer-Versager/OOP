@@ -16,8 +16,8 @@ public class MainService {
     private final static DiscountService discountService = new DiscountService();
 
 
-    public void menuFormation(int time, double money, Set<Restriction> restrictions) throws Exception {
-        clientService.createClient(time, money, restrictions);//создание клиента
+    public void menuFormation(long id, int time, double money, EnumSet<Restriction> restrictions) throws Exception {
+        clientService.createClient(id, time, money, restrictions);//создание клиента
         menuService.demo(dishService);
         var formattedMenu = menuService.formMenuForCurrentClient(restrictions, dishService); //выстраивание доступных блюд из меню по ограничениям
         clientService.setPersonalMenu(formattedMenu);
@@ -53,6 +53,10 @@ public class MainService {
     public String showMenu() {
         return menuService.getMenu().toString();
     }
+
+    /*public List getMenu() {
+        return clientService.getPersonalMenu();
+    }*/
 
     public String showPersonalMenu() {
         return clientService.getPersonalMenu().toString();

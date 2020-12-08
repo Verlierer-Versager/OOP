@@ -5,20 +5,19 @@ import RestaurantMenu.model.Dish;
 import RestaurantMenu.model.Ingredient;
 import RestaurantMenu.model.Restriction;
 
-import java.util.ArrayList;
-import java.util.LinkedHashSet;
+import java.awt.*;
+import java.util.*;
 import java.util.List;
-import java.util.Set;
 
 public class DishService {
 
     public void setRestriction(Dish dish) {
         var ingredients = dish.getIngredients();
-        Set<Restriction> restrictions = new LinkedHashSet<>();
+        EnumSet<Restriction> restrictions = EnumSet.noneOf(Restriction.class);
         for ( var ingredient: ingredients ) {
             restrictions.add(ingredient.getRestriction());
 
-            if(restrictions.size() == Restriction.values().length ) break;
+            if(restrictions.size() == Restriction.values().length ) break; //лишняя оптимизация
         }
         restrictions.remove(Restriction.NONE);
         dish.setRestrictions(restrictions);
@@ -34,6 +33,10 @@ public class DishService {
             if(dishRestriction.contains(restriction)) return false;
         }
         return true;
+    }
+
+    public Dish copy(Dish dish) {
+        return new Dish(dish.getName(), dish.getPrice(), dish.getTime(), dish.getIngredients(), dish.getCategory(), dish.getId());
     }
     //public void removeDish()
 

@@ -16,10 +16,35 @@ public class DiscountService {
         this.discount = discount;
     }
 
-    public Set<Dish> countDiscount(List<Dish> order) {
+    public Set<Dish> countDiscount(List<Dish> order, DishService dishService) {
+        var newOrder = List.copyOf(order);
         Set<Dish> withDiscount = new LinkedHashSet<>();
-        for (var dish : order) {
-            if (discount.getCombinations().containsKey(dish)) {
+        var combos =  discount.getCombinations();
+        //var select = Optional.of(newOrder); //Хотелось через Optional, но не получилось
+        for (var dish : newOrder) {
+            for(var combo: combos) {
+                if(combo.contains(dish)) {
+                    Set<Dish> temp = new LinkedHashSet<>();
+                    for(var comboDish: combo) {
+                        if (newOrder.contains(comboDish)) {
+                            temp.add(comboDish);
+                        }
+                    }
+                    if(temp.equals(combo)) {
+                        for(var comboDish: combo) {
+                            newOrder.remove(comboDish);
+                            double discountPrice = comboDish.getPrice() * (100 - discount.getDiscount()) / 100;
+                            Dish discountDish = dishService.copy(comboDish);
+                            discountDish.setPrice(discountPrice);
+                            withDiscount.add(discountDish);
+                        }
+                    }
+                }
+            }
+            if(!newOrder.isEmpty()) {
+                withDiscount.addAll(newOrder);
+            }
+            /*if (discount.getCombinations().containsKey(dish)) {
                 withDiscount.add(dish);
                 withDiscount.add(discount.getCombinations().get(dish));
                 continue;
@@ -30,12 +55,11 @@ public class DiscountService {
                         .stream()
                         .filter(entry -> dish.equals(entry.getValue()))
                         .map(Map.Entry::getKey)
-                        .findFirst();
-                if(result.isPresent()) {
+                        .findFirst().isPresent();
                     withDiscount.add(result.get());
                     withDiscount.add(dish);
                 }
-            }
+            }*/
         }
         return withDiscount;
     }

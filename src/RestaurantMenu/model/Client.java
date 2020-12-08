@@ -1,12 +1,14 @@
 package RestaurantMenu.model;
 
+import java.util.EnumSet;
 import java.util.List;
 import java.util.Set;
 
 public class Client {
+    long id;
     private int time;
     private double money;
-    private Set<Restriction> restrictions;
+    private EnumSet<Restriction> restrictions;
     private Menu personalMenu;
     private Order order;
 
@@ -26,10 +28,19 @@ public class Client {
         this.order = order;
     }
 
-    public Client(int time, double money, Set<Restriction> restrictions) {
+    public Client(long id, int time, double money, EnumSet<Restriction> restrictions) {
+        this.id = id;
         this.time = time;
         this.money = money;
         this.restrictions = restrictions;
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
     }
 
     public int getTime() {
@@ -48,11 +59,11 @@ public class Client {
         this.money = money;
     }
 
-    public Set<Restriction> getRestrictions() {
+    public EnumSet<Restriction> getRestrictions() {
         return restrictions;
     }
 
-    public void setRestrictions(Set<Restriction> restrictions) {
+    public void setRestrictions(EnumSet<Restriction> restrictions) {
         this.restrictions = restrictions;
     }
 }
