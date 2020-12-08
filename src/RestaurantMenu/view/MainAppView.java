@@ -22,11 +22,4 @@ public class MainAppView extends Application {
         Controller ctr = new Controller();
         ctr.start(primaryStage);
     }
-
-    /*@Override
-    public void init() {
-        stackPane = new StackPane();
-    }*/
-
-
 }

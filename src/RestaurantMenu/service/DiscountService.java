@@ -24,7 +24,6 @@ public class DiscountService {
         var newOrder = List.copyOf(order);
         List<Dish> withDiscount = new ArrayList<>();
         var combos =  discount.getCombinations();
-        //var select = Optional.of(newOrder); //Хотелось через Optional, но не получилось
         for (var dish : newOrder) {
             for(var combo: combos) {
                 if(combo.contains(dish)) {
@@ -49,23 +48,6 @@ public class DiscountService {
             if(!order.isEmpty()) {
                 withDiscount.addAll(order);
             }
-            /*order = newOrder;
-            /*if (discount.getCombinations().containsKey(dish)) {
-                withDiscount.add(dish);
-                withDiscount.add(discount.getCombinations().get(dish));
-                continue;
-            }
-            if (discount.getCombinations().containsValue(dish)) {
-                //withDiscount.add(discount.getCombinations().get(dish));
-                var result = discount.getCombinations().entrySet()
-                        .stream()
-                        .filter(entry -> dish.equals(entry.getValue()))
-                        .map(Map.Entry::getKey)
-                        .findFirst().isPresent();
-                    withDiscount.add(result.get());
-                    withDiscount.add(dish);
-                }
-            }*/
         }
         return withDiscount;
     }

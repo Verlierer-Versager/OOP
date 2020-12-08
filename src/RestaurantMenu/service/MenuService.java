@@ -7,16 +7,7 @@ import java.util.*;
 
 public class MenuService {
     private Menu menu = new Menu();
-    //private final DishService dishService;
 
-    /*public MenuService(DishService dishService) {
-        this.dishService = dishService;
-    }*/
-
-    /*public  getMenu(DishService dishService) {
-        return menu.getDishes();
-    }
-*/
     public void add(String name, double price, int time, List<Ingredient> ingredients, DishService dishService, Category category, long id) {
         Dish dish = dishService.createDish(name, price, time, ingredients, category, id);
         var newDishes = menu.getDishes();

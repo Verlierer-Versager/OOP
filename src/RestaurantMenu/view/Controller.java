@@ -52,8 +52,6 @@ public class Controller {
             CreateClient createClient = new CreateClient();
             createClient.start();
         });
-        /*var menu = mainService.
-        MenuList = mainService.showPersonalMenu()*/
         var a = FXCollections.observableArrayList(mainService.showMenu());
         MenuList.setItems(a);
 

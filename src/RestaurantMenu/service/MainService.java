@@ -1,6 +1,7 @@
 package RestaurantMenu.service;
 
 import RestaurantMenu.model.Dish;
+import RestaurantMenu.model.Menu;
 import RestaurantMenu.model.Order;
 import RestaurantMenu.model.Restriction;
 
@@ -48,8 +49,6 @@ public class MainService {
         return clientService.getClient(id).getOrder().toString();
     }
 
-    //public List<String>
-
     public List<String> showMenu() {
         menuService.demo(dishService);
         var menu = menuService.getMenu().getDishes();
@@ -61,9 +60,9 @@ public class MainService {
         return showMenu;
     }
 
-    /*public List getMenu() {
-        return clientService.getPersonalMenu();
-    }*/
+    public Menu getMenu(long id) {
+        return clientService.getPersonalMenu(id);
+    }
 
     public String showPersonalMenu(long id) {
         return clientService.getPersonalMenu(id).toString();

@@ -5,7 +5,6 @@ import RestaurantMenu.model.Dish;
 import RestaurantMenu.model.Ingredient;
 import RestaurantMenu.model.Restriction;
 
-import java.awt.*;
 import java.util.*;
 import java.util.List;
 
@@ -38,6 +37,5 @@ public class DishService {
     public Dish copy(Dish dish) {
         return new Dish(dish.getName(), dish.getPrice(), dish.getTime(), dish.getIngredients(), dish.getCategory(), dish.getId());
     }
-    //public void removeDish()
 
 }

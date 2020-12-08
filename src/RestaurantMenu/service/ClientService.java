@@ -10,12 +10,8 @@ import java.util.Set;
 
 public class ClientService {
     private List<Client> clients = new ArrayList<>();
-    //private Client client;
     private long id = 0;
 
-    /*public ClientService(int time, double money, Set<Restriction> restrictions) {
-        this.client = new Client(time, money, restrictions);
-    }*/
 
     public void createClient(String name, int time, double money, EnumSet<Restriction> restrictions) throws Exception {
         if (time <= 0 && money < 0 && name != null && name != "") {
