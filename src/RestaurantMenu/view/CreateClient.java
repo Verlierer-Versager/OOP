@@ -6,6 +6,7 @@ import java.util.ResourceBundle;
 
 import RestaurantMenu.model.Restriction;
 import RestaurantMenu.service.ClientService;
+import RestaurantMenu.service.MainService;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -17,7 +18,8 @@ import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
 public class CreateClient {
-    private final static ClientService clientService  = new ClientService();
+    private static ClientService clientService  = new ClientService();
+    private static MainService mainService = new MainService();
 
     @FXML
     private ResourceBundle resources;
@@ -88,8 +90,10 @@ public class CreateClient {
                 restrictions.add(Restriction.NONE);
             }
             try {
-                clientService.createClient(name, time, money, restrictions);
+                mainService.menuFormation(name, time, money, restrictions);
+                //clientService.createClient(name, time, money, restrictions);
             } catch (Exception e) {
+                System.out.println("облажалась");
                 e.printStackTrace();
             }
             Stage stage = (Stage) CreateBtn.getScene().getWindow();
@@ -98,19 +102,21 @@ public class CreateClient {
 
     }
 
-    public void start() {
+    public MainService start(MainService mainService) {
         Parent root;
+        this.mainService = mainService;
         try {
-            root = FXMLLoader.load(getClass().getResource("fxml/CreateClientView.fxml"));
+            root = FXMLLoader.load(getClass().getResource("fxml/CreateClient.fxml"));
             Stage stage = new Stage();
             stage.setTitle("Создание клиента");
             stage.setScene(new Scene(root, 600, 400));
             stage.setMinWidth(300);
             stage.setMinHeight(300);
-            stage.show();
+            stage.showAndWait();
 
         } catch (Exception e) {
             e.printStackTrace();
         }
+        return mainService;
     }
 }

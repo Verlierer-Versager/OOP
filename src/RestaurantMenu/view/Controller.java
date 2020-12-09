@@ -10,15 +10,13 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.ListView;
-import javafx.scene.control.Menu;
-import javafx.scene.control.MenuBar;
-import javafx.scene.control.MenuItem;
+import javafx.scene.control.*;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 
 public class Controller {
-    private final static MainService mainService = new MainService();
+    private static MainService mainService = new MainService();
+    private Stage primaryStage;
     //private final static Scanner scanner = new Scanner(System.in);
 
     @FXML
@@ -43,28 +41,46 @@ public class Controller {
     private MenuItem ChooseClient;
 
     @FXML
-    private ListView<String> MenuList = new ListView<String>(FXCollections.observableArrayList("Java", "JavaScript", "C#", "Python"));
+    private ListView<String> MenuList;
+
+    @FXML
+    private Label MenuPjsitionLbl;
+
+    @FXML
+    private TextField PositionsField;
+
+    @FXML
+    private Button СheckoutBtn;
 
 
     @FXML
     void initialize() {
-        CreateClient.setOnAction(event -> {
-            CreateClient createClient = new CreateClient();
-            createClient.start();
-        });
         var a = FXCollections.observableArrayList(mainService.showMenu());
         MenuList.setItems(a);
-
-
+        CreateClient.setOnAction(event -> {
+            CreateClient createClient = new CreateClient();
+            mainService = createClient.start(mainService);
+            while (mainService.getClientService() == null) {
+                try {
+                    primaryStage.wait();
+                } catch (InterruptedException e) {
+                    System.out.println("облажалась");
+                    e.printStackTrace();
+                }
+            }
+            var personalMenu = FXCollections.observableArrayList(mainService.showPersonalMenu(mainService.getLastClientId()));
+            MenuList.setItems(personalMenu);
+        });
     }
 
 
     public void start(Stage primaryStage) throws Exception {
-        Parent root = FXMLLoader.load(getClass().getResource("fxml/AppView.fxml"));
-        primaryStage.setTitle("Меню ресторана");
-        primaryStage.setScene(new Scene(root, 600, 600));
-        primaryStage.setMinWidth(300);
-        primaryStage.setMinHeight(300);
-        primaryStage.show();
+        this.primaryStage = primaryStage;
+        Parent root = FXMLLoader.load(getClass().getResource("fxml/AppView2.fxml"));
+        this.primaryStage.setTitle("Меню ресторана");
+        this.primaryStage.setScene(new Scene(root, 600, 600));
+        this.primaryStage.setMinWidth(300);
+        this.primaryStage.setMinHeight(300);
+        this.primaryStage.show();
     }
 }
