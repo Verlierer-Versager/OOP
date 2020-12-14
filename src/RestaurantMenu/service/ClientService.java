@@ -50,6 +50,9 @@ public class ClientService {
     }
 
     public Client getLastClient() {
-        return clients.get(clients.size() - 1);
+        if (clients.size()>0) {
+            return clients.get(clients.size() - 1);
+        }
+        return null;
     }
 }

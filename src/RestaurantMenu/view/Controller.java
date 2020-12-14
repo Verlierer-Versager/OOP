@@ -68,8 +68,18 @@ public class Controller {
                     e.printStackTrace();
                 }
             }
-            var personalMenu = FXCollections.observableArrayList(mainService.showPersonalMenu(mainService.getLastClientId()));
-            MenuList.setItems(personalMenu);
+            try {
+                var personalMenu = FXCollections.observableArrayList(mainService.showPersonalMenu(mainService.getLastClientId()));
+                MenuList.setItems(personalMenu);
+            } catch (NullPointerException e) {
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("Ошибка добавления клиента");
+                alert.setHeaderText("Произошла ошибка при создании клиента!");
+                alert.setContentText("Пожалуйста, повторите попытку для дальнейшей работы!");
+
+                alert.showAndWait();
+            }
+
         });
     }
 

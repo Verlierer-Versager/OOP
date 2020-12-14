@@ -24,31 +24,35 @@ public class DiscountService {
         var newOrder = List.copyOf(order);
         List<Dish> withDiscount = new ArrayList<>();
         var combos =  discount.getCombinations();
-        for (var dish : newOrder) {
-            for(var combo: combos) {
-                if(combo.contains(dish)) {
-                    Set<Dish> temp = new LinkedHashSet<>();
-                    for(var comboDish: combo) {
-                        if (order.contains(comboDish)) {
-                            temp.add(comboDish);
-                        }
-                    }
-                    if(temp.equals(combo)) {
-                        for(var comboDish: combo) {
-                            int index = order.indexOf(comboDish);
-                            order.remove(index);
-                            double discountPrice = comboDish.getPrice() * (100 - discount.getDiscount()) / 100;
-                            Dish discountDish = dishService.copy(comboDish);
-                            discountDish.setPrice(discountPrice);
-                            withDiscount.add(discountDish);
-                        }
-                    }
+        for (var dish : newOrder) {  //проходка по каждому блюду в заказе
+            for(var combo: combos) { //для каждого блюда проходка по всем комбо
+                if(combo.contains(dish)) { //если это блюдо принадлежит какому-то комбо
+                    checkDishesForCombo(combo, order, withDiscount, dishService);
                 }
             }
-            if(!order.isEmpty()) {
-                withDiscount.addAll(order);
-            }
+        }
+        if(!order.isEmpty()) {
+            withDiscount.addAll(order);
         }
         return withDiscount;
+    }
+
+    private void checkDishesForCombo(Set<Dish> combo, List<Dish> order, List<Dish> withDiscount, DishService dishService) {
+        Set<Dish> temp = new LinkedHashSet<>();
+        for(var comboDish: combo) { //для каждого блюда в этом комбо
+            if (order.contains(comboDish)) { // если заказ содержит другие блюда из комбо
+                temp.add(comboDish); //то добавляем его в множество
+            }
+        }
+        if(temp.equals(combo)) {
+            for(var comboDish: combo) {
+                int index = order.indexOf(comboDish);
+                order.remove(index);
+                double discountPrice = comboDish.getPrice() * (100 - discount.getDiscount()) / 100;
+                Dish discountDish = dishService.copy(comboDish);
+                discountDish.setPrice(discountPrice);
+                withDiscount.add(discountDish);
+            }
+        }
     }
 }

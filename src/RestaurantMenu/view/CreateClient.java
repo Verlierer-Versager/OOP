@@ -11,10 +11,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.RadioButton;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.stage.Stage;
 
 public class CreateClient {
@@ -66,36 +63,46 @@ public class CreateClient {
     @FXML
     void initialize() {
         CreateBtn.setOnAction(event -> {
-            String name = NameField.getText();
-            int time = Integer.parseInt(TimeField.getText());
-            double money = Double.parseDouble(MoneyField.getText());
-            EnumSet<Restriction> restrictions = EnumSet.noneOf(Restriction.class);
-
-            AdultRadioBtn.setOnAction(event1 -> {
-                restrictions.add(Restriction.FOR_ADULTS_ONLY);
-            });
-            AllergenRadioBtn.setOnAction(event1 -> {
-                restrictions.add(Restriction.STRONG_ALLERGENS);
-            });
-            VegetarianRadioBtn.setOnAction(event1 -> {
-                restrictions.add(Restriction.NOT_VEGETARIAN);
-            });
-            VeganRadioBtn.setOnAction(event1 -> {
-                restrictions.add(Restriction.NOT_VEGAN);
-            });
-            SpicyRadioBtn.setOnAction(event1 -> {
-                restrictions.add(Restriction.NOT_SPICY);
-            });
-            if(restrictions.isEmpty()) {
-                restrictions.add(Restriction.NONE);
-            }
             try {
-                mainService.menuFormation(name, time, money, restrictions);
-                //clientService.createClient(name, time, money, restrictions);
-            } catch (Exception e) {
-                System.out.println("облажалась");
-                e.printStackTrace();
+                String name = NameField.getText();
+                int time = Integer.parseInt(TimeField.getText());
+                double money = Double.parseDouble(MoneyField.getText());
+
+                EnumSet<Restriction> restrictions = EnumSet.noneOf(Restriction.class);
+
+                AdultRadioBtn.setOnAction(event1 -> {
+                    restrictions.add(Restriction.FOR_ADULTS_ONLY);
+                });
+                AllergenRadioBtn.setOnAction(event1 -> {
+                    restrictions.add(Restriction.STRONG_ALLERGENS);
+                });
+                VegetarianRadioBtn.setOnAction(event1 -> {
+                    restrictions.add(Restriction.NOT_VEGETARIAN);
+                });
+                VeganRadioBtn.setOnAction(event1 -> {
+                    restrictions.add(Restriction.NOT_VEGAN);
+                });
+                SpicyRadioBtn.setOnAction(event1 -> {
+                    restrictions.add(Restriction.NOT_SPICY);
+                });
+                if(restrictions.isEmpty()) {
+                    restrictions.add(Restriction.NONE);
+                }
+                try {
+                    mainService.menuFormation(name, time, money, restrictions);
+                    //clientService.createClient(name, time, money, restrictions);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            } catch (NumberFormatException e) {
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("Ошибка создания клиента");
+                alert.setHeaderText("При созздании клиента были введены некорректные данные.");
+                alert.setContentText("Пожалуйста, повторите попытку");
+
+                alert.showAndWait();
             }
+
             Stage stage = (Stage) CreateBtn.getScene().getWindow();
             stage.close();
         });

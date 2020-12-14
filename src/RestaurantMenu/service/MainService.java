@@ -67,7 +67,11 @@ public class MainService {
     }
 
     public long getLastClientId() {
-        return clientService.getLastClient().getId();
+        try {
+            return clientService.getLastClient().getId();
+        }catch (NullPointerException e) {
+            throw new NullPointerException("No client has been added");
+        }
     }
 
     public ClientService getClientService() {
