@@ -90,7 +90,6 @@ public class CreateClient {
                 }
                 try {
                     mainService.menuFormation(name, time, money, restrictions);
-                    //clientService.createClient(name, time, money, restrictions);
                 } catch (Exception e) {
                     e.printStackTrace();
                 }

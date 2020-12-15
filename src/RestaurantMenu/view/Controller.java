@@ -1,6 +1,8 @@
 package RestaurantMenu.view;
 
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
 import java.util.Scanner;
 
@@ -17,6 +19,7 @@ import javafx.stage.Stage;
 public class Controller {
     private static MainService mainService = new MainService();
     private Stage primaryStage;
+    private long currentId;
     //private final static Scanner scanner = new Scanner(System.in);
 
     @FXML
@@ -44,19 +47,20 @@ public class Controller {
     private ListView<String> MenuList;
 
     @FXML
-    private Label MenuPjsitionLbl;
+    private Label MenuPositionLbl;
 
     @FXML
     private TextField PositionsField;
 
     @FXML
-    private Button СheckoutBtn;
+    private Button CheckoutBtn;
 
 
     @FXML
     void initialize() {
         var a = FXCollections.observableArrayList(mainService.showMenu());
         MenuList.setItems(a);
+
         CreateClient.setOnAction(event -> {
             CreateClient createClient = new CreateClient();
             mainService = createClient.start(mainService);
@@ -71,6 +75,7 @@ public class Controller {
             try {
                 var personalMenu = FXCollections.observableArrayList(mainService.showPersonalMenu(mainService.getLastClientId()));
                 MenuList.setItems(personalMenu);
+                currentId = mainService.getLastClientId();
             } catch (NullPointerException e) {
                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
                 alert.setTitle("Ошибка добавления клиента");
@@ -81,8 +86,41 @@ public class Controller {
             }
 
         });
+
+        CheckoutBtn.setOnAction(event -> {
+            try {
+                var order = readOrder(PositionsField.getText());
+                mainService.order(order, currentId);
+                //Order showOrder = new Order();
+                //showOrder.start(mainService.showOrder(currentId));
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("Оформление заказа");
+                alert.setHeaderText("Ваш заказ:");
+                alert.setContentText(mainService.showOrder(currentId));
+                alert.showAndWait();
+            } catch (Exception e) {
+                //e.printStackTrace();
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Ошибка ввода");
+                alert.setHeaderText("При заказе были введены некорректные данные!");
+                alert.setContentText("Пожалуйста, повторите попытку, разделите номера позиций запятыми.");
+
+                alert.showAndWait();
+            }
+
+        });
     }
 
+    private List<Integer> readOrder(String orderString) throws Exception {
+        orderString = orderString.replaceAll("\\s+", "");
+        var order = orderString.split(",");
+        //int[] result = new int[order.length];
+        List<Integer> result = new ArrayList<>();
+        for(int i = 0; i < order.length; i++) {
+            result.add(Integer.parseInt(order[i]));
+        }
+        return result;
+    }
 
     public void start(Stage primaryStage) throws Exception {
         this.primaryStage = primaryStage;
