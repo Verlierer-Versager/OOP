@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane id="MainPane" fx:id="MainPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="RestaurantMenu.view.Controller">
+   <top>
+      <MenuBar id="Menu" fx:id="Menu" BorderPane.alignment="CENTER">
+        <menus>
+          <Menu id="ClientMenu" fx:id="ClientMenu" mnemonicParsing="false" text="Клиент">
+            <items>
+              <MenuItem id="CreateClient" fx:id="CreateClient" mnemonicParsing="false" text="Создать" />
+                  <MenuItem id="ChooseClient" fx:id="ChooseClient" mnemonicParsing="false" text="Выбрать" />
+            </items>
+          </Menu>
+          <Menu mnemonicParsing="false" text="Edit">
+            <items>
+              <MenuItem mnemonicParsing="false" text="Delete" />
+            </items>
+          </Menu>
+          <Menu mnemonicParsing="false" text="Help">
+            <items>
+              <MenuItem mnemonicParsing="false" text="About" />
+            </items>
+          </Menu>
+        </menus>
+      </MenuBar>
+   </top>
+   <center>
+      <ListView fx:id="MenuList" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER" />
+   </center>
+   <bottom>
+      <BorderPane prefHeight="83.0" prefWidth="600.0" BorderPane.alignment="CENTER">
+         <left>
+            <Label fx:id="MenuPositionLbl" prefHeight="17.0" prefWidth="140.0" text="Введите позиции блюд" textAlignment="CENTER" BorderPane.alignment="CENTER" />
+         </left>
+         <center>
+            <TextField fx:id="PositionsField" prefHeight="25.0" prefWidth="312.0" BorderPane.alignment="CENTER" />
+         </center>
+         <right>
+            <Button fx:id="CheckoutBtn" mnemonicParsing="false" prefHeight="25.0" prefWidth="127.0" text="Оформить заказ" BorderPane.alignment="CENTER" />
+         </right>
+      </BorderPane>
+   </bottom>
+</BorderPane>

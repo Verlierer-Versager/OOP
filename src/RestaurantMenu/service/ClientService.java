@@ -14,7 +14,7 @@ public class ClientService {
 
 
     public void createClient(String name, int time, double money, EnumSet<Restriction> restrictions) throws Exception {
-        if (time <= 0 && money < 0 && name != null && name != "") {
+        if (time <= 0 && money < 0 && name == null && name == "") {
             throw new IllegalArgumentException("Incorrect input");
         }
         clients.add(new Client(id, name,  time, money, restrictions));
@@ -50,6 +50,9 @@ public class ClientService {
     }
 
     public Client getLastClient() {
-        return clients.get(clients.size() - 1);
+        if (clients.size()>0) {
+            return clients.get(clients.size() - 1);
+        }
+        return null;
     }
 }

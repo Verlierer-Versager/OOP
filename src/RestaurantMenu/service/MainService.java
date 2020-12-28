@@ -1,20 +1,18 @@
 package RestaurantMenu.service;
 
-import RestaurantMenu.model.Dish;
-import RestaurantMenu.model.Menu;
-import RestaurantMenu.model.Order;
-import RestaurantMenu.model.Restriction;
+import RestaurantMenu.model.*;
 
 import java.util.*;
 
 public class MainService {
-    private final static DishService dishService = new DishService();
-    private final static MenuService menuService = new MenuService();
-    private final static ClientService clientService = new ClientService();
-    private final static DiscountService discountService = new DiscountService();
+    private DishService dishService = new DishService();
+    private MenuService menuService = new MenuService();
+    private ClientService clientService = new ClientService();
+    private DiscountService discountService = new DiscountService();
 
 
-    public void menuFormation(String name, long id, int time, double money, EnumSet<Restriction> restrictions) throws Exception {
+    public void menuFormation(String name, int time, double money, EnumSet<Restriction> restrictions) throws Exception {
+
         clientService.createClient(name, time, money, restrictions);//создание клиента
         menuService.demo(dishService);
         var formattedMenu = menuService.formMenuForCurrentClient(restrictions, dishService); //выстраивание доступных блюд из меню по ограничениям
@@ -66,5 +64,21 @@ public class MainService {
 
     public String showPersonalMenu(long id) {
         return clientService.getPersonalMenu(id).toString();
+    }
+
+    public long getLastClientId() {
+        try {
+            return clientService.getLastClient().getId();
+        }catch (NullPointerException e) {
+            throw new NullPointerException("No client has been added");
+        }
+    }
+
+    public ClientService getClientService() {
+        return clientService;
+    }
+
+    public void setClientService(ClientService clientService) {
+        this.clientService = clientService;
     }
 }
